@@ -23,7 +23,7 @@ func sliceAtoi(sa []string) ([]int, error) {
 }
 
 func main() {
-	file, err := os.Open("data.txt")
+	file, err := os.Open("../data.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -45,17 +45,24 @@ func main() {
 	var maxi int = len(intlines)
 
 	var j int = maxi - 1
+	var k int = 1
 	for i := 0; i < maxi; {
-		sumf := intlines[j] + intlines[i]
-		if sumf > 2020 {
+		diff := 2020 - intlines[i]
+		sumf := intlines[j] + intlines[k] 
+		if sumf > diff {
 			j--
 		}
-		if sumf < 2020 {
-			i++
+		if sumf < diff {
+			k++
 		}
-		if sumf == 2020 {
-			fmt.Println(intlines[i] * intlines[j])
+		if sumf == diff {
+			fmt.Println(intlines[i] * intlines[j] * intlines[k])
 			break
+		}
+		if k > j {
+			i++
+			k = i + 1
+			j = maxi - 1
 		}
 	}
 }
